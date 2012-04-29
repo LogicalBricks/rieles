@@ -1,0 +1,40 @@
+=== Rieles
+
+Incluye diversos archivos para trabajar en Español. El archivo de inflections para pluralizar y singularizar, el archivo de locale para los mensajes, y los templates erb para que el scaffold genere las vistas en Español.
+
+== Instalación
+
+Agrega esta línea al Gemfile de tu aplicación:
+
+    gem 'rieles'
+
+Después ejecuta:
+
+    $ bundle
+
+O instálala de la siguiente manera:
+
+    $ gem install rieles
+
+== Uso
+
+¡Listo! Con esto ya tienes los inflections y locales en Español. Puedes probar entrando a una consola:
+
+    $ rails console
+
+y obteniendo el plural o singular de alguna palabra en Español, por ejemplo:
+
+    'riel'.pluralize
+    'rieles'.singularize
+
+Igualmente, los mensajes de error de active record y las vistas generadas por el scaffold se mostrarán en Español
+
+== Personalización (recomendada)
+
+Se recomienda instalar los archivos de inflections, locales y la estructura de las vistas para adaptarlos a tus necesidades
+
+    $ gem generate rieles:install
+
+Si haces esto, la gema puede quedar en el grupo 'development', lo que significa que no será necesaria en producción. En el Gemfile debe aparecer como:
+
+    gem 'rieles', :group => :development
