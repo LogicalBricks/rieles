@@ -1,4 +1,4 @@
-=== Rieles
+= Rieles
 
 Incluye diversos archivos para trabajar en Español. El archivo de inflections para pluralizar y singularizar, el archivo de locale para los mensajes, y los templates erb para que el scaffold genere las vistas en Español.
 
