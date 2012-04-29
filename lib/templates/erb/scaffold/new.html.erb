@@ -1,0 +1,6 @@
+<% nuevo = singular_table_name.split('_')[0].ends_with?("a") ? 'Nueva' : 'Nuevo' -%>
+<h1><%= nuevo  %> <%= human_name %></h1>
+
+<%%= render 'form' %>
+
+<%%= link_to 'Listado', <%= index_helper %>_path %>

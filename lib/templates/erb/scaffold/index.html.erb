@@ -1,0 +1,31 @@
+<h1>Listado de <%= plural_table_name.humanize %></h1>
+
+<table>
+  <thead>
+    <tr>
+<%- attributes.each do |attribute| -%>
+      <th><%= attribute.human_name %></th>
+<%- end -%>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+    <tr>
+<%- attributes.each do |attribute| -%>
+      <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+<%- end -%>
+      <td><%%= link_to 'Mostrar', <%= singular_table_name %> %></td>
+      <td><%%= link_to 'Editar', edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
+      <td><%%= link_to 'Eliminar', <%= singular_table_name %>, <%= key_value :confirm, "'¿Está usted seguro?'" %>, <%= key_value :method, ":delete" %> %></td>
+    </tr>
+  <%% end %>
+  </tbody>
+</table>
+
+<br />
+<% nuevo = singular_table_name.split('_')[0].ends_with?("a") ? 'Nueva' : 'Nuevo' -%>
+<%%= link_to '<%= nuevo %> <%= human_name %>', new_<%= singular_table_name %>_path %>

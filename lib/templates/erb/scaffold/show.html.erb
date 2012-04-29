@@ -1,0 +1,11 @@
+<p id="notice"><%%= notice %></p>
+
+<%- attributes.each do |attribute| -%>
+<p>
+  <b><%= attribute.human_name %>:</b>
+  <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+</p>
+
+<%- end -%>
+<%%= link_to 'Editar', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>) %> |
+<%%= link_to 'Listado', <%= index_helper %>_path %>

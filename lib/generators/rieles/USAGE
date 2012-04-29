@@ -1,0 +1,15 @@
+Description:
+    Genera un archivo de inflections para obtener el plural y singular de las palabras según las reglas en Español, incluye la traducción por omisión de rails para el locale es.yml y los templates para que al utilizar el scaffold las vistas sean generadas también en Español
+
+Example:
+    rails generate rieles
+
+    This will create:
+        config/initializers/inflections.rb
+        config/locales/es.rb
+        lib/templates/erb/scaffold/index.html.erb
+        lib/templates/erb/scaffold/edit.html.erb
+        lib/templates/erb/scaffold/new.html.erb
+        lib/templates/erb/scaffold/show.html.erb
+        lib/templates/erb/scaffold/_form.html.erb
+        app/views/application/_error_messages.html.erb
