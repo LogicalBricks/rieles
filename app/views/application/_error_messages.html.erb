@@ -1,5 +1,5 @@
 <% if target.errors.any? %>
-  <% gender ||= target.class.name.ends_with?("a") ? "female" : "male" %>
+  <% gender ||= (target.class.name =~ /[ad]$/ ) ? "female" : "male" %>
   <% model_name ||= target.class.name.underscore.humanize.downcase %>
   <div id="error_explanation">
     <h2>

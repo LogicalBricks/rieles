@@ -1,4 +1,4 @@
-<% nuevo = singular_table_name.split('_')[0].ends_with?("a") ? 'Nueva' : 'Nuevo' -%>
+<% nuevo = singular_table_name.split('_').first =~ /[ad]$/ ? 'Nueva' : 'Nuevo' -%>
 <h1><%= nuevo  %> <%= human_name %></h1>
 
 <%%= render 'form' %>

@@ -27,5 +27,5 @@
 </table>
 
 <br />
-<% nuevo = singular_table_name.split('_')[0].ends_with?("a") ? 'Nueva' : 'Nuevo' -%>
+<% nuevo = singular_table_name.split('_').first =~ /[ad]$/ ? 'Nueva' : 'Nuevo' -%>
 <%%= link_to '<%= nuevo %> <%= human_name %>', new_<%= singular_table_name %>_path %>
