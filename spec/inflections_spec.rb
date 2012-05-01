@@ -4,11 +4,11 @@ require 'rieles'
 
 describe 'Inflections' do
   def singulares
-    %w(riel camion hospital universidad reloj semestre mesa calle)
+    %w(riel camion hospital universidad reloj semestre mesa ave bola materia)
   end
 
   def plurales
-    %w(rieles camiones hospitales universidades relojes semestres mesas calles)
+    %w(rieles camiones hospitales universidades relojes semestres mesas aves bolas materias)
   end
 
   describe 'Pluralizaciones' do
@@ -29,6 +29,7 @@ describe 'Inflections' do
     it 'debe pluralizar casos especiales' do
       'pais'.pluralize.should == 'paises'
       'maiz'.pluralize.should == 'maices'
+      'materia'.pluralize.should == 'materias'
     end
 
     it 'no debe pluralizar palabras que ya estén en plural' do
@@ -36,7 +37,7 @@ describe 'Inflections' do
       'camiones_grandes'.pluralize.should == 'camiones_grandes'
       'universidades_hospitales_doctores'.pluralize.should == 'universidades_hospitales_doctores'
       'paises'.pluralize.should == 'paises'
-      'lunes'.singularize.should == 'lunes'
+      'lunes'.pluralize.should == 'lunes'
     end
   end
 
@@ -62,6 +63,7 @@ describe 'Inflections' do
     it 'debe singularize casos especiales' do
       'paises'.singularize.should == 'pais'
       'maices'.singularize.should == 'maiz'
+      'materias'.singularize.should == 'materia'
     end
 
     it 'no debe singularizar palabras que ya estén en singular' do
@@ -70,6 +72,7 @@ describe 'Inflections' do
       'universidad_hospital_doctor'.singularize.should == 'universidad_hospital_doctor'
       'pais'.singularize.should == 'pais'
       'lunes'.singularize.should == 'lunes'
+      'materia'.singularize.should == 'materia'
     end
   end
 end
