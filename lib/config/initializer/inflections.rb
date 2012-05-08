@@ -24,8 +24,15 @@ ActiveSupport::Inflector.inflections do |inflect|
   # terminen con r, n, d, l se convierten a plural agregando la sílaba "es", 
   # de otra forma, el plural se obtendrían como doctors, camions, universidads 
   # y pastels.
-  inflect.plural(/([rndlj])([A-Z]|_|$)/, '\1es\2')
-  inflect.plural(/([aeiou])([A-Z]|_|$)/, '\1s\2')
+  # Para que la expresión no quede tan extensa, vamos a utilizar unas variables
+  # para almacenar parte de la misma. También nos servirá para no tener que
+  # repetir la mistra estructura.
+
+  final_singular_rndlj = /([rndlj])([A-Z]|_|$)/
+  final_singular_vocal = /([aeiou])([A-Z]|_|$)/
+
+  inflect.plural(/#{final_singular_rndlj}/, '\1es\2')
+  inflect.plural(/#{final_singular_vocal}/, '\1s\2')
 
   # Las reglas anteriores funcionan incluso cuando son palabras compuestas por
   # dos o más palabras, siempre y cuando, todas sean del mismo tipo, es decir,
@@ -38,10 +45,10 @@ ActiveSupport::Inflector.inflections do |inflect|
   # "paciente_doctores". Esto sucede porque al pluralizar, rails aplica sólo
   # la última regla que coincida y omite las demás.
   # Para soportar palabras compuestas, es necesario agregar otras reglas.
-  inflect.plural(/([aeiou])([A-Z]|_)([a-z]+)([rndlj])([A-Z]|_|$)/, 
-                 '\1s\2\3\4es\5')
-  inflect.plural(/([rndlj])([A-Z]|_)([a-z]+)([aeiou])([A-Z]|_|$)/, 
-                 '\1es\2\3\4s\5')
+  compuesta_singular_1 = /#{final_singular_vocal}([a-z]+)#{final_singular_rndlj}/
+  compuesta_singular_2 = /#{final_singular_rndlj}([a-z]+)#{final_singular_vocal}/
+  inflect.plural(compuesta_singular_1, '\1s\2\3\4es\5')
+  inflect.plural(compuesta_singular_2, '\1es\2\3\4s\5')
   # Con estas reglas, ya se pueden traducir correctamente las palabras compuestas
   # de dos palabras aunque no sean del mismo tipo.
   # Se pueden agregar, de la misma manera, reglas para cuando se trate de tres
@@ -66,9 +73,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   # sílaba "es" del final, se singularizaría como 'semestr'. Para evitar eso, se 
   # obliga que la palabra que termina en "es" y venga precedida de r, n, d o l, 
   # deba también ser precedida por una vocal.
-  # Para que la epresión no quede tan extensa, vamos a utilizar unas variables
-  # para almacenar parte de la misma. También nos servirá para no tener que
-  # repetir la mistra estructura.
 
   # Primero, definimos las palabras que terminen en 'es', precedido de r, n, d, 
   # l o j, precedido de una vocal.
@@ -80,8 +84,8 @@ ActiveSupport::Inflector.inflections do |inflect|
   # Lsas palabras compuestas serán las siguientes: la primera palabra es con r,
   # n, d, l o j, seguida de una palabra terminada en vocal. La segunda palabra
   # compuesta, será al revés.
-  palabra_compuesta_1 = /#{final_plural_rndlj}([a-z]+)#{final_plural_vocal}/
-  palabra_compuesta_2 = /#{final_plural_vocal}([a-z]+)#{final_plural_rndlj}/
+  compuesta_plural_1 = /#{final_plural_rndlj}([a-z]+)#{final_plural_vocal}/
+  compuesta_plural_2 = /#{final_plural_vocal}([a-z]+)#{final_plural_rndlj}/
 
   # las palabras terminadas en ia ya están en singular
   inflect.singular(/(ia)([A-Z]|_|$)$/i, '\1')
@@ -91,8 +95,8 @@ ActiveSupport::Inflector.inflections do |inflect|
   # tanto en vocal, como en r, n, d, l, o j.
   inflect.singular(final_plural_rndlj, '\1\2')
   inflect.singular(final_plural_vocal, '\1\2')
-  inflect.singular(palabra_compuesta_1, '\1\2\3\4\5')
-  inflect.singular(palabra_compuesta_2, '\1\2\3\4\5')
+  inflect.singular(compuesta_plural_1, '\1\2\3\4\5')
+  inflect.singular(compuesta_plural_2, '\1\2\3\4\5')
 
   # Para singularizar palabras con 'ces', como 'maices'
   inflect.singular(/ces$/, 'z')
