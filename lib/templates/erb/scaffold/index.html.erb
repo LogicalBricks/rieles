@@ -18,14 +18,17 @@
 <%- attributes.each do |attribute| -%>
       <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
 <%- end -%>
-      <td><%%= link_to t('helpers.links.show'), <%= singular_table_name %> %></td>
-      <td><%%= link_to t('helpers.links.edit'), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
-      <td><%%= link_to t('helpers.lniks.destroy'), <%= singular_table_name %>, <%= key_value :confirm, "'¿Está usted seguro?'" %>, <%= key_value :method, ":delete" %> %></td>
+      <td><%%= link_to t('.show', <%= key_value :default, "t('helpers.links.show')" %>), <%= singular_table_name %> %></td>
+      <td><%%= link_to t('.edit', <%= key_value :default, "t('helpers.links.edit')" %>), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
+      <td><%%= link_to t('.destroy', <%= key_value :default, "t('helpers.links.destroy')" %>), <%= singular_table_name %>, <%= key_value :confirm, "'¿Está usted seguro?'" %>, <%= key_value :method, ":delete" %> %></td>
     </tr>
   <%% end %>
   </tbody>
 </table>
 
 <br />
-<% nuevo = singular_table_name.split('_').first =~ /[ad]$/ ? 'Nueva' : 'Nuevo' -%>
-<%%= link_to '<%= nuevo %> <%= human_name %>', new_<%= singular_table_name %>_path %>
+<% if singular_table_name.split('_').first =~ /[ad]$/ -%>
+  <%%= link_to t('.new', <%= key_value :default, "t('helpers.links.f_new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
+<% else %>
+  <%%= link_to t('.new', <%= key_value :default, "t('helpers.links.new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
+<% end %>
