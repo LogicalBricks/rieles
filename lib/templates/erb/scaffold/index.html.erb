@@ -28,7 +28,7 @@
 
 <br />
 <% if singular_table_name.split('_').first =~ /[ad]$/ -%>
-  <%%= link_to t('.new', <%= key_value :default, "t('helpers.links.f_new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
+<%%= link_to t('.new', <%= key_value :default, "t('helpers.links.f_new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
 <% else %>
-  <%%= link_to t('.new', <%= key_value :default, "t('helpers.links.new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
+<%%= link_to t('.new', <%= key_value :default, "t('helpers.links.new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
 <% end %>
