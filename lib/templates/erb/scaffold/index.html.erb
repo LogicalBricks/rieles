@@ -20,7 +20,7 @@
 <%- end -%>
       <td><%%= link_to t('.show', <%= key_value :default, "t('helpers.links.show')" %>), <%= singular_table_name %> %></td>
       <td><%%= link_to t('.edit', <%= key_value :default, "t('helpers.links.edit')" %>), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
-      <td><%%= link_to t('.destroy', <%= key_value :default, "t('helpers.links.destroy')" %>), <%= singular_table_name %>, <%= key_value :confirm, "'¿Está usted seguro?'" %>, <%= key_value :method, ":delete" %> %></td>
+      <td><%%= link_to t('.destroy', <%= key_value :default, "t('helpers.links.destroy')" %>), <%= singular_table_name %>, <%= key_value :confirm, "t('helpers.links.confirm')" %>, <%= key_value :method, ":delete" %> %></td>
     </tr>
   <%% end %>
   </tbody>

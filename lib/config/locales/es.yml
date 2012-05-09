@@ -179,6 +179,7 @@ es:
       destroy: 'Eliminar'
       new: 'Nuevo %{model}'
       f_new: 'Nueva %{model}'
+      confirm: '¿Está usted seguro?'
 
   errors:
     format: "%{attribute} %{message}"
