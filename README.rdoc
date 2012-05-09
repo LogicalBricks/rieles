@@ -29,6 +29,10 @@ y obteniendo el plural o singular de alguna palabra en Español, por ejemplo:
 
 Igualmente, los mensajes de error de active record y las vistas generadas por el scaffold se mostrarán en Español
 
+No se olvide de modificar su archivo config/application.rb para indicar que se trabajará en Español.
+
+    config.i18n.default_locale = :es
+
 == Personalización (recomendada)
 
 Se recomienda instalar los archivos de inflections, locales y la estructura de las vistas para adaptarlos a tus necesidades
