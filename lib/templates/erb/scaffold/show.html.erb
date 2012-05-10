@@ -3,7 +3,11 @@
 <%- attributes.each do |attribute| -%>
 <p>
   <b><%= attribute.human_name %>:</b>
+<%- if attribute.type == :integer or attribute.type == :decimal -%>
+  <%%= number_with_delimiter @<%= singular_table_name %>.<%= attribute.name %> %>
+<%- else -%>
   <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+<%- end -%>
 </p>
 
 <%- end -%>

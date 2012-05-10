@@ -1,5 +1,6 @@
 <h1>Listado de <%= plural_table_name.humanize %></h1>
 
+<%% if @<%= plural_table_name %>.any? %>
 <table>
   <thead>
     <tr>
@@ -16,7 +17,11 @@
   <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
     <tr>
 <%- attributes.each do |attribute| -%>
+  <%- if attribute.type == :integer or attribute.type == :decimal -%>
+      <td><%%= number_with_delimiter <%= singular_table_name %>.<%= attribute.name %> %></td>
+  <%- else -%>
       <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+  <%- end -%>
 <%- end -%>
       <td><%%= link_to t('.show', <%= key_value :default, "t('helpers.links.show')" %>), <%= singular_table_name %> %></td>
       <td><%%= link_to t('.edit', <%= key_value :default, "t('helpers.links.edit')" %>), edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
@@ -25,10 +30,15 @@
   <%% end %>
   </tbody>
 </table>
+<%% else %>
+<div>
+  <h3>No se encontraron <%= plural_table_name.humanize %></h3>
+</div>
+<%% end %>
 
 <br />
-<% if singular_table_name.split('_').first =~ /[ad]$/ -%>
+<%- if singular_table_name.split('_').first =~ /[ad]$/ -%>
 <%%= link_to t('.new', <%= key_value :default, "t('helpers.links.f_new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
-<% else %>
+<%- else -%>
 <%%= link_to t('.new', <%= key_value :default, "t('helpers.links.new')" %>, <%= key_value(:model, "'#{human_name}'") %>), new_<%= singular_table_name %>_path %>
-<% end %>
+<%- end -%>
