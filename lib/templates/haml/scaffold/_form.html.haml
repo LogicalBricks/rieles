@@ -1,0 +1,12 @@
+= form_for(@<%= singular_table_name %>) do |f|
+  <%- object = "@#{singular_table_name}" -%>
+  = render 'error_messages', <%= key_value :target, object %>
+
+<%- attributes.each do |attribute| -%>
+  .field
+    = f.label :<%= attribute.name %>
+    %br
+    = f.<%= attribute.field_type %> :<%= attribute.name %>
+<%- end -%>
+  .actions
+    = f.submit

@@ -1,0 +1,6 @@
+<% nuevo = singular_table_name.split('_').first =~ /[ad]$/ ? 'Nueva' : 'Nuevo' -%>
+%h1 <%= nuevo %> <%= human_name %>
+
+= render 'form'
+
+= link_to t('.back', <%= key_value :default, "t('helpers.links.back')" %>), <%= index_helper %>_path
