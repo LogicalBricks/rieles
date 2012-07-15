@@ -11,6 +11,10 @@ describe 'Inflections' do
     %w(rieles camiones hospitales universidades relojes semestres mesas aves bolas materias)
   end
 
+  #########################################################
+  # Sección que prueba las conversiones al plural
+  #########################################################
+
   describe 'Pluralizaciones' do
     it 'debe pluralizar palabras sencillas' do
       singulares.each_with_index do |s, i|
