@@ -1,0 +1,11 @@
+- if target.errors.any?
+  - gender ||= (target.class.name =~ /[ad]$/ ) ? "female" : "male"
+  - model_name ||= target.class.name.underscore.humanize.downcase
+  #error_explanation
+    %h2
+      = t('activerecord.errors.template.header', :count => target.errors.count, :model => model_name, :article => (gender == "male" ? "El" : "La"))
+    = t('activerecord.errors.template.body')
+    %ul
+      - target.errors.full_messages.each do |msg|
+        %li
+        = msg %>
