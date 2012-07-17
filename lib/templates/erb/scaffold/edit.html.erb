@@ -2,5 +2,5 @@
 
 <%%= render 'form' %>
 
-<%%= link_to t('.show', <%= key_value :default, "t('helpers.links.show')" %>), @<%= singular_table_name %> %> |
-<%%= link_to t('.back', <%= key_value :default, "t('helpers.links.back')" %>), <%= index_helper %>_path %>
+<%%= link_to 'Mostrar', @<%= singular_table_name %> %> |
+<%%= link_to 'Listado', <%= index_helper %>_path %>

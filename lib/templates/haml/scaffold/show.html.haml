@@ -10,6 +10,6 @@
 <%- end -%>
 
 <%- end -%>
-= link_to t('.edit', <%= key_value :default, "t('helpers.links.edit')" %>), edit_<%= singular_table_name %>_path(@<%= singular_table_name %>)
+= link_to 'Editar', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>)
 \|
-= link_to t('.back', <%= key_value :default, "t('helpers.links.back')" %>), <%= index_helper %>_path
+= link_to 'Listado', <%= index_helper %>_path

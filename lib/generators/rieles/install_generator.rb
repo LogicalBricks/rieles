@@ -18,19 +18,36 @@ module Rieles
         copy_file '../../../config/locales/es.yml', 'config/locales/es.yml'
 
         unless options.skip_templates?
-          copy_file 'index.html.erb', 'lib/templates/erb/scaffold/index.html.erb'
-          copy_file 'edit.html.erb', 'lib/templates/erb/scaffold/edit.html.erb'
-          copy_file 'new.html.erb', 'lib/templates/erb/scaffold/new.html.erb'
-          copy_file 'show.html.erb', 'lib/templates/erb/scaffold/show.html.erb'
-          copy_file '_form.html.erb', 'lib/templates/erb/scaffold/_form.html.erb'
-          copy_file '../../../../app/views/application/_error_messages.html.erb', 'app/views/application/_error_messages.html.erb'
+          copy_file("index.html.#{engine_extension}", 
+                    "lib/templates/erb/scaffold/index.html.#{engine_extension}")
+          copy_file("edit.html.#{engine_extension}", 
+                    "lib/templates/erb/scaffold/edit.html.#{engine_extension}")
+          copy_file("new.html.#{engine_extension}", 
+                    "lib/templates/erb/scaffold/new.html.#{engine_extension}")
+          copy_file("show.html.#{engine_extension}", 
+                    "lib/templates/erb/scaffold/show.html.#{engine_extension}")
+          copy_file("_form.html.#{engine_extension}", 
+                    "lib/templates/erb/scaffold/_form.html.#{engine_extension}")
+          copy_file("../../../../app/views/application/_error_messages.html.#{engine_extension}",
+                    "app/views/application/_error_messages.html.#{engine_extension}")
         end
       end
 
+      ####################
       private
+      ####################
 
       def file_name
         file_name = options.keep_current? ? 'inflections_es' : 'inflections'
       end
+
+      def engine_extension
+        @engine_extension ||= get_extension
+      end
+
+      def get_extension
+        ::Rails.application.config.generators.options[:rails][:template_engine] || 'erb'
+      end
+
     end
 end
