@@ -1,6 +1,6 @@
 = Rieles
 
-Incluye diversos archivos para trabajar en Español. El archivo de inflections para pluralizar y singularizar, el archivo de locale para los mensajes, y los templates erb para que el scaffold genere las vistas en Español.
+Incluye diversos archivos para trabajar en Español. Dentro de los recursos que se agregan está el archivo de inflections para pluralizar y singularizar en Español, el archivo de locale para traducir los mensajes, y los templates erb y haml para que el scaffold genere las vistas completamente en Español.
 
 == Instalación
 
@@ -18,6 +18,10 @@ O instálala de la siguiente manera:
 
 == Uso
 
+Modifica el archivo config/application.rb para indicar que se trabajará en Español.
+
+    config.i18n.default_locale = :es
+
 ¡Listo! Con esto ya tienes los inflections y locales en Español. Puedes probar entrando a una consola:
 
     $ rails console
@@ -27,11 +31,7 @@ y obteniendo el plural o singular de alguna palabra en Español, por ejemplo:
     'riel'.pluralize
     'rieles'.singularize
 
-Igualmente, los mensajes de error de active record y las vistas generadas por el scaffold se mostrarán en Español
-
-No se olvide de modificar su archivo config/application.rb para indicar que se trabajará en Español.
-
-    config.i18n.default_locale = :es
+Igualmente, los mensajes de error de active record y las vistas generadas por el scaffold se mostrarán ya traducidas.
 
 == Personalización (recomendada)
 
@@ -39,6 +39,6 @@ Se recomienda instalar los archivos de inflections, locales y la estructura de l
 
     $ rails generate rieles:install
 
-Si haces esto, la gema puede quedar en el grupo 'development', lo que significa que no será necesaria en producción. En el Gemfile debe aparecer como:
+Si haces esto, la gema puede quedar en el grupo 'development', lo que significa que no será necesaria en el entorno de producción. En el Gemfile debe aparecer como:
 
     gem 'rieles', :group => :development

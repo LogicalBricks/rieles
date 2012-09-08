@@ -58,7 +58,11 @@ module Rieles
     end
 
     def view_engine
-      ::Rails.application.config.generators.options[:rails][:template_engine] || 'erb'
+      if ::Rails.application
+        ::Rails.application.config.generators.options[:rails][:template_engine]
+      else
+        'erb'
+      end
     end
 
   end

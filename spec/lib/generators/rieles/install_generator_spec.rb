@@ -7,19 +7,41 @@ describe Rieles::InstallGenerator do
   include GeneratorSpec::TestCase
   destination File.expand_path("../../tmp", __FILE__)
 
-  before(:all) do
-    prepare_destination
-    run_generator
+  context 'when creating erb views' do
+    before(:all) do
+      prepare_destination
+      ::Rieles::InstallGenerator.any_instance.stub(:engine).and_return('erb')
+      run_generator
+    end
+
+    it "crea los archivos de inflections, el locale en español, y los templates del scaffold" do
+      assert_file "config/initializers/inflections.rb", File.read('lib/config/initializer/inflections.rb')
+      assert_file "config/locales/es.yml", File.read('lib/config/locales/es.yml')
+      assert_file "lib/templates/erb/scaffold/new.html.erb", File.read('lib/templates/erb/scaffold/new.html.erb')
+      assert_file "lib/templates/erb/scaffold/show.html.erb", File.read('lib/templates/erb/scaffold/show.html.erb')
+      assert_file "lib/templates/erb/scaffold/edit.html.erb", File.read('lib/templates/erb/scaffold/edit.html.erb')
+      assert_file "lib/templates/erb/scaffold/index.html.erb", File.read('lib/templates/erb/scaffold/index.html.erb')
+      assert_file "lib/templates/erb/scaffold/_form.html.erb", File.read('lib/templates/erb/scaffold/_form.html.erb')
+      assert_file "app/views/application/_error_messages.html.erb", File.read('app/views/application/_error_messages.html.erb')
+    end
   end
 
-  it "crea los archivos de inflections, el locale en español, y los templates del scaffold" do
-    assert_file "config/initializers/inflections.rb", File.read('lib/config/initializer/inflections.rb')
-    assert_file "config/locales/es.yml", File.read('lib/config/locales/es.yml')
-    assert_file "lib/templates/erb/scaffold/new.html.erb", File.read('lib/templates/erb/scaffold/new.html.erb')
-    assert_file "lib/templates/erb/scaffold/show.html.erb", File.read('lib/templates/erb/scaffold/show.html.erb')
-    assert_file "lib/templates/erb/scaffold/edit.html.erb", File.read('lib/templates/erb/scaffold/edit.html.erb')
-    assert_file "lib/templates/erb/scaffold/index.html.erb", File.read('lib/templates/erb/scaffold/index.html.erb')
-    assert_file "lib/templates/erb/scaffold/_form.html.erb", File.read('lib/templates/erb/scaffold/_form.html.erb')
-    assert_file "app/views/application/_error_messages.html.erb", File.read('app/views/application/_error_messages.html.erb')
+  context 'when creating haml views' do
+    before(:all) do
+      prepare_destination
+      ::Rieles::InstallGenerator.any_instance.stub(:engine).and_return('haml')
+      run_generator
+    end
+
+    it "crea los archivos de inflections, el locale en español, y los templates del scaffold" do
+      assert_file "config/initializers/inflections.rb", File.read('lib/config/initializer/inflections.rb')
+      assert_file "config/locales/es.yml", File.read('lib/config/locales/es.yml')
+      assert_file "lib/templates/haml/scaffold/new.html.haml", File.read('lib/templates/haml/scaffold/new.html.haml')
+      assert_file "lib/templates/haml/scaffold/show.html.haml", File.read('lib/templates/haml/scaffold/show.html.haml')
+      assert_file "lib/templates/haml/scaffold/edit.html.haml", File.read('lib/templates/haml/scaffold/edit.html.haml')
+      assert_file "lib/templates/haml/scaffold/index.html.haml", File.read('lib/templates/haml/scaffold/index.html.haml')
+      assert_file "lib/templates/haml/scaffold/_form.html.haml", File.read('lib/templates/haml/scaffold/_form.html.haml')
+      assert_file "app/views/application/_error_messages.html.haml", File.read('app/views/application/_error_messages.html.haml')
+    end
   end
 end
