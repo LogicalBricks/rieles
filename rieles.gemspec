@@ -4,8 +4,8 @@ require File.expand_path('../lib/rieles/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Azarel Doroteo Pacheco"]
   gem.email         = ["azarel.doroteo@logicalbricks.com"]
-  gem.description = %q{Instala el archivo de inflections para pluralizar y singularizar según las reglas en Español, incluye el locale en Español y agrega templates erb para que el scaffold genere las vistas en Español.}
-  gem.summary     = %q{Instala inflections, locales y templates de scaffold para trabajar en Español.}
+  gem.description   = %q{Instala el archivo de inflections para pluralizar y singularizar según las reglas en Español, incluye el locale en Español y agrega templates erb/haml para que el scaffold genere las vistas en Español.}
+  gem.summary       = %q{Instala inflections, locales y templates de scaffold para trabajar en Español.}
   gem.homepage      = ""       
 
 
