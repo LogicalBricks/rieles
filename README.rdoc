@@ -37,7 +37,7 @@ No se olvide de modificar su archivo config/application.rb para indicar que se t
 
 Se recomienda instalar los archivos de inflections, locales y la estructura de las vistas para adaptarlos a tus necesidades
 
-    $ gem generate rieles:install
+    $ rails generate rieles:install
 
 Si haces esto, la gema puede quedar en el grupo 'development', lo que significa que no será necesaria en producción. En el Gemfile debe aparecer como:
 
