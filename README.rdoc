@@ -29,13 +29,11 @@ Modifica el archivo config/application.rb para indicar que se trabajará en Espa
 y obteniendo el plural o singular de alguna palabra en Español, por ejemplo:
 
 
-```ruby
     'riel'.pluralize
     # => "rieles"
 
     'rieles'.singularize
     # => "riel"
-```
 
 Igualmente, los mensajes de error de active record y las vistas generadas por el scaffold se mostrarán ya traducidas.
 
