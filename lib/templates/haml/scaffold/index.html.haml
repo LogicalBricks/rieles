@@ -4,7 +4,7 @@
   %table
     %thead
       %tr
-  <%- attributes.each do |attribute| -%>
+  <%- attributes.reject(&:password_digest?).each do |attribute| -%>
         %th <%= attribute.human_name %>
   <%- end -%>
         %th
@@ -14,7 +14,7 @@
     %tbody
       - @<%= plural_table_name %>.each do |<%= singular_table_name %>|
         %tr
-  <%- attributes.each do |attribute| -%>
+  <%- attributes.reject(&:password_digest?).each do |attribute| -%>
     <%- if attribute.type == :integer or attribute.type == :decimal -%>
           %td= number_with_delimiter <%= singular_table_name %>.<%= attribute.name %>
     <%- else -%>
@@ -23,11 +23,11 @@
   <%- end -%>
           %td= link_to 'Mostrar', <%= singular_table_name %>
           %td= link_to 'Editar', edit_<%= singular_table_name %>_path(<%= singular_table_name %>)
-          %td= link_to 'Eliminar', <%= singular_table_name %>, <%= key_value :method, ":delete" %>, <%= key_value :data, "{ #{key_value :confirm, "'¿Estás seguro?'"} }" %>
+          %td= link_to 'Eliminar', <%= singular_table_name %>, method: :delete, data: { confirm: '¿Estás seguro?' }
 - else
   %div
     %h3 No se encontraron <%= plural_table_name.humanize %>
 
 %br
 <%- nuevo_str = (singular_table_name.split('_').first =~ /[ad]$/) ? 'Nueva' : 'Nuevo' %>
-= link_to "<%= nuevo_str %> <%= human_name %>", new_<%= singular_table_name %>_path
+= link_to <%= %{"#{nuevo_str} #{human_name}", new_#{singular_table_name}_path} %>
