@@ -8,7 +8,7 @@ describe Rieles::InstallGenerator do
   destination File.expand_path("../../tmp", __FILE__)
 
   context 'when creating erb views' do
-    before(:all) do
+    before(:each) do
       prepare_destination
       ::Rieles::InstallGenerator.any_instance.stub(:engine).and_return('erb')
       run_generator
@@ -27,7 +27,7 @@ describe Rieles::InstallGenerator do
   end
 
   context 'when creating haml views' do
-    before(:all) do
+    before(:each) do
       prepare_destination
       ::Rieles::InstallGenerator.any_instance.stub(:engine).and_return('haml')
       run_generator
