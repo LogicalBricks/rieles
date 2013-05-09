@@ -14,7 +14,7 @@ describe Rieles::InstallGenerator do
       run_generator
     end
 
-    it "crea los archivos de inflections, el locale en español, y los templates del scaffold" do
+    it 'creates inflection files, spanish locale and erb scaffold templates' do
       assert_file "config/initializers/inflections.rb", File.read('lib/config/initializer/inflections.rb')
       assert_file "config/locales/es.yml", File.read('lib/config/locales/es.yml')
       assert_file "lib/templates/erb/scaffold/new.html.erb", File.read('lib/templates/erb/scaffold/new.html.erb')
@@ -33,7 +33,7 @@ describe Rieles::InstallGenerator do
       run_generator
     end
 
-    it "crea los archivos de inflections, el locale en español, y los templates del scaffold" do
+    it 'creates inflection files, spanish locale and haml scaffold templates' do
       assert_file "config/initializers/inflections.rb", File.read('lib/config/initializer/inflections.rb')
       assert_file "config/locales/es.yml", File.read('lib/config/locales/es.yml')
       assert_file "lib/templates/haml/scaffold/new.html.haml", File.read('lib/templates/haml/scaffold/new.html.haml')
