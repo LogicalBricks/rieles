@@ -1,39 +1,39 @@
 <h1>Listado de <%= plural_table_name.humanize %></h1>
 
 <%% if @<%= plural_table_name %>.any? %>
-<table>
-  <thead>
-    <tr>
+  <table>
+    <thead>
+      <tr>
 <%- attributes.reject(&:password_digest?).each do |attribute| -%>
-      <th><%= attribute.human_name %></th>
+        <th><%= attribute.human_name %></th>
 <%- end -%>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
 
-  <tbody>
+    <tbody>
   <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
-    <tr>
+      <tr>
 <%- attributes.reject(&:password_digest?).each do |attribute| -%>
   <%- if attribute.type == :integer or attribute.type == :decimal -%>
-      <td><%%= number_with_delimiter <%= singular_table_name %>.<%= attribute.name %> %></td>
+        <td><%%= number_with_delimiter <%= singular_table_name %>.<%= attribute.name %> %></td>
   <%- else -%>
-      <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
+        <td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td>
   <%- end -%>
 <%- end -%>
-      <td><%%= link_to 'Mostrar', <%= singular_table_name %> %></td>
-      <td><%%= link_to 'Editar', edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
-      <td><%%= link_to 'Eliminar', <%= singular_table_name %>, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
-    </tr>
+        <td><%%= link_to 'Mostrar', <%= singular_table_name %> %></td>
+        <td><%%= link_to 'Editar', edit_<%= singular_table_name %>_path(<%= singular_table_name %>) %></td>
+        <td><%%= link_to 'Eliminar', <%= singular_table_name %>, method: :delete, data: { confirm: '¿Estás seguro?' } %></td>
+      </tr>
   <%% end %>
-  </tbody>
-</table>
+    </tbody>
+  </table>
 <%% else %>
-<div>
-  <h3>No se encontraron <%= plural_table_name.humanize %></h3>
-</div>
+  <div>
+    <h3>No se encontraron <%= plural_table_name.humanize %></h3>
+  </div>
 <%% end %>
 
 <br />
