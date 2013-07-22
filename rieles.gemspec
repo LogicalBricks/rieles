@@ -16,6 +16,8 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Rieles::VERSION
 
+  gem.add_dependency 'rails', '~> 3.0'
+
   gem.add_development_dependency 'generator_spec'
   gem.add_development_dependency 'rspec'
 end

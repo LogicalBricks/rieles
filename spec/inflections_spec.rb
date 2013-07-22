@@ -1,5 +1,4 @@
 # encoding: UTF-8
-require 'rails'
 require 'rieles'
 
 describe 'Inflections' do
