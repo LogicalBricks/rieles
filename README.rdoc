@@ -1,4 +1,4 @@
-{<img src="https://travis-ci.org/LogicalBricks]/rieles.png" />}[https://travis-ci.org/LogicalBricks/rieles]
+{<img src="https://travis-ci.org/LogicalBricks/rieles.png" />}[https://travis-ci.org/LogicalBricks/rieles]
 
 = Rieles
 
