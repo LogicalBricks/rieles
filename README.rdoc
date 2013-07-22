@@ -1,3 +1,5 @@
+{<img src="https://travis-ci.org/LogicalBricks]/rieles.png" />}[https://travis-ci.org/LogicalBricks/rieles]
+
 = Rieles
 
 Incluye diversos archivos para trabajar en Español. Dentro de los recursos que se agregan está el archivo de inflections para pluralizar y singularizar en Español, el archivo de locale para traducir los mensajes, y los templates erb y haml para que el scaffold genere las vistas completamente en Español.
