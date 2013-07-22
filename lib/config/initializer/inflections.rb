@@ -81,7 +81,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   # caso de que esa vocal sea la e, entonces no debe ser precedida de alguna 
   # combinación de vocal + r, n, d, l o j.
   final_plural_vocal = /((?<![aeiou][rndlj])e|a|i|o|u)s([A-Z]|_|$)/
-  # Lsas palabras compuestas serán las siguientes: la primera palabra es con r,
+  # Las palabras compuestas serán las siguientes: la primera palabra es con r,
   # n, d, l o j, seguida de una palabra terminada en vocal. La segunda palabra
   # compuesta, será al revés.
   compuesta_plural_1 = /#{final_plural_rndlj}([a-z]+)#{final_plural_vocal}/
