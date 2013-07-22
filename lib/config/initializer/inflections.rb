@@ -1,4 +1,5 @@
 # encoding: UTF-8
+# Be sure to restart your server when you modify this file.
 
 ##############################################################################
 # Inflections para trabajar en Español.
@@ -54,7 +55,7 @@ ActiveSupport::Inflector.inflections do |inflect|
   # palabras compuestas, pero esto significa tomar en cuenta más combinaciones.
   # En la mayoría de los casos, creo que es suficiente con estas dos.
 
-  # Para obtener correctamente el plural de palablas como maiz => maices,
+  # Para obtener correctamente el plural de palabras como maiz => maices,
   # pez => peces, las palabras terminadas en z se cambian la z por c, y
   # se agrega "es"
   inflect.plural(/z([A-Z]|_|$)$/i, 'ces\1')
