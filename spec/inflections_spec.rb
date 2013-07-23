@@ -3,18 +3,18 @@ require 'rieles'
 
 describe 'Inflections' do
   def singulares
-    %w(riel camion hospital universidad reloj semestre mesa ave bola materia)
+    %w[riel camion hospital universidad reloj ley semestre mesa ave bola materia]
   end
 
   def plurales
-    %w(rieles camiones hospitales universidades relojes semestres mesas aves bolas materias)
+    %w[rieles camiones hospitales universidades relojes leyes semestres mesas aves bolas materias]
   end
 
   #########################################################
   # Sección que prueba las conversiones al plural
   #########################################################
 
-  describe 'Pluralizaciones' do
+  context 'Pluralizaciones' do
     it 'debe pluralizar palabras sencillas' do
       singulares.each_with_index do |s, i|
         s.pluralize.should == plurales[i]
@@ -22,8 +22,8 @@ describe 'Inflections' do
     end
 
     it 'debe pluralizar palabras compuestas' do
-      singulares_compuestas = singulares.permutation(2).to_a.collect{ |e| e.join('_') }
-      plurales_compuestas = plurales.permutation(2).to_a.collect{ |e| e.join('_') }
+      singulares_compuestas = singulares.permutation(4).to_a.collect{ |e| e.join('_') }
+      plurales_compuestas = plurales.permutation(4).to_a.collect{ |e| e.join('_') }
       singulares_compuestas.each_with_index do |s, i|
         s.pluralize.should == plurales_compuestas[i]
       end
@@ -40,6 +40,7 @@ describe 'Inflections' do
       'camiones_grandes'.pluralize.should == 'camiones_grandes'
       'universidades_hospitales_doctores'.pluralize.should == 'universidades_hospitales_doctores'
       'paises'.pluralize.should == 'paises'
+      'meses'.pluralize.should == 'meses'
       'lunes'.pluralize.should == 'lunes'
     end
   end
@@ -48,16 +49,16 @@ describe 'Inflections' do
   # Sección que prueba las conversiones al singular
   #########################################################
 
-  describe 'Singularizaciones' do
+  context 'Singularizaciones' do
     it 'debe singularizar palabras sencillas' do
       plurales.each_with_index do |p, i|
         p.singularize.should == singulares[i]
       end
     end
 
-    it 'debe pluralizar palabras compuestas' do
-      singulares_compuestas = singulares.permutation(2).to_a.collect{ |e| e.join('_') }
-      plurales_compuestas = plurales.permutation(2).to_a.collect{ |e| e.join('_') }
+    it 'debe singularizar palabras compuestas' do
+      singulares_compuestas = singulares.permutation(4).to_a.collect{ |e| e.join('_') }
+      plurales_compuestas = plurales.permutation(4).to_a.collect{ |e| e.join('_') }
       plurales_compuestas.each_with_index do |p, i|
         p.singularize.should == singulares_compuestas[i]
       end
