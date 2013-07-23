@@ -20,83 +20,57 @@ ActiveSupport::Inflector.inflections do |inflect|
   # La regla básica en Español es similar al Inglés, el plural de las palabras 
   # terminadas en vocal se obtiene agregándole una 's' al final. Sin embargo, 
   # para formar correctamente el plural de palabras como doctor, camion, 
-  # universidad o pastel, se aplica una regla distinta: las palabras que 
-  # terminen con r, n, d, l se convierten a plural agregando la sílaba "es", 
-  # de otra forma, el plural se obtendrían como doctors, camions, universidads 
-  # y pastels.
-  # Para que la expresión no quede tan extensa, vamos a utilizar unas variables
-  # para almacenar parte de la misma. También nos servirá para no tener que
-  # repetir la mistra estructura.
-
-  final_singular_rndlj = /([rndlj])([A-Z]|_|$)/
-  final_singular_vocal = /([aeiou])([A-Z]|_|$)/
-
-  inflect.plural(/#{final_singular_rndlj}/, '\1es\2')
-  inflect.plural(/#{final_singular_vocal}/, '\1s\2')
-
-  # Las reglas anteriores funcionan incluso cuando son palabras compuestas por
-  # dos o más palabras, siempre y cuando, todas sean del mismo tipo, es decir,
-  # que ambas terminen con r, n, d o l, o bien, que ambas terminen en vocal;
-  # por ejemplo "doctor_operacion", o "libro_revista", serán pluralizadas
-  # correctamente a "doctores_operaciones" y "libros_revistas" respectivamente.
-  # Sin embargo, si las palabras no son del mismo tipo, la pluralización no
-  # ocurre correctamente. Por ejemplo, "autor_libro" es pluralizado como
-  # "autor_libros", y "paciente_doctor" es pluralizado como
-  # "paciente_doctores". Esto sucede porque al pluralizar, rails aplica sólo
-  # la última regla que coincida y omite las demás.
-  # Para soportar palabras compuestas, es necesario agregar otras reglas.
-  compuesta_singular_1 = /#{final_singular_vocal}([a-z]+)#{final_singular_rndlj}/
-  compuesta_singular_2 = /#{final_singular_rndlj}([a-z]+)#{final_singular_vocal}/
-  inflect.plural(compuesta_singular_1, '\1s\2\3\4es\5')
-  inflect.plural(compuesta_singular_2, '\1es\2\3\4s\5')
-  # Con estas reglas, ya se pueden traducir correctamente las palabras compuestas
-  # de dos palabras aunque no sean del mismo tipo.
-  # Se pueden agregar, de la misma manera, reglas para cuando se trate de tres
-  # palabras compuestas, pero esto significa tomar en cuenta más combinaciones.
-  # En la mayoría de los casos, creo que es suficiente con estas dos.
-
+  # universidad ley o pastel, se aplica una regla distinta: las palabras que
+  # terminen con r, y, n, d, l se convierten a plural agregando la sílaba "es",
+  # de otra forma, el plural se obtendrían como doctors, camions, universidads,
+  # leys y pastels.
   # Para obtener correctamente el plural de palabras como maiz => maices,
   # pez => peces, las palabras terminadas en z se cambian la z por c, y
-  # se agrega "es"
-  inflect.plural(/z([A-Z]|_|$)$/i, 'ces\1')
+  # se agrega "es".
+  # Por facilidad, haremos uso de la posibilidad que nos brinda `gsub` de pasar
+  # un hash para realizar los remplazos.
+
+  remplazos = {
+    'a' => 'as',
+    'e' => 'es',
+    'i' => 'is',
+    'o' => 'os',
+    'u' => 'us',
+    'd' => 'des',
+    'j' => 'jes',
+    'l' => 'les',
+    'n' => 'nes',
+    'r' => 'res',
+    'y' => 'yes',
+    'z' => 'ces',
+  }
+
+  inflect.plural(/(z|[aeiou]|[rndljy])(?=[A-Z]|_|$)/, remplazos)
 
   #-----------------------------------------------------------------------------
 
   # Para singularizar, generalmente basta con eliminar la 's' del final, pero
   # palabras como doctores y universidades se convertirían erróneamente como
   # doctore y universidade.
-  # Podemos agregar una nueva regla, cuando la palabra termina en "es", eliminar 
-  # esa sílaba, pero esto tampoco es del todo cierto, ya que funciona con 
-  # palabras como "doctores" o "camiones", porque su singular son "doctor" y 
-  # "camion", respectivamente. Sin embargo, hay otras palabras que se 
-  # convertirían erróneamente, como semestres, por ejemplo, que al eliminar la 
-  # sílaba "es" del final, se singularizaría como 'semestr'. Para evitar eso, se 
-  # obliga que la palabra que termina en "es" y venga precedida de r, n, d o l, 
-  # deba también ser precedida por una vocal.
+  # Podemos agregar una nueva regla, cuando la palabra termina en "es",
+  # eliminar esa sílaba, pero esto tampoco es del todo cierto, ya que funciona
+  # con palabras como "doctores" o "camiones", porque su singular son "doctor"
+  # y "camion", respectivamente. Sin embargo, hay otras palabras que se
+  # convertirían erróneamente, como semestres, por ejemplo, que al eliminar
+  # la sílaba "es" del final, se singularizaría como 'semestr'. Para evitar
+  # eso, se obliga que la palabra que termina en "es" y venga precedida de r,
+  # y, n, d o l, deba también ser precedida por una vocal.
+  # Primero, definimos las palabras que terminen en 'es', precedido de r, y, n,
+  # d, l o j, precedido de una vocal.
+  # Después, definimos las palabras que terminen en vocal seguida de una 's'. En
+  # caso de que esa vocal sea la e, entonces debe ser precedida de alguna
+  # combinación de las letras b, c, d, f, g, p, t seguida de las letras l o r.
+  # Nota: Por una regla que aplica en Inglés, las palabras terminadas en 'ia'
+  # son plurales de palabras terminadas en 'um', ejemplo 'medium' => 'media'.
+  # Como es Español esa regla no aplica, es necesario especificar que las
+  # palabras terminadas en ia ya están en singular.
 
-  # Primero, definimos las palabras que terminen en 'es', precedido de r, n, d, 
-  # l o j, precedido de una vocal.
-  final_plural_rndlj = /([aeiou][rndlj])es([A-Z]|_|$)/
-  # Después, definimos las palabras que terminen en vocal seguida de una 's'. En 
-  # caso de que esa vocal sea la e, entonces no debe ser precedida de alguna 
-  # combinación de vocal + r, n, d, l o j.
-  final_plural_vocal = /((?<![aeiou][rndlj])e|a|i|o|u)s([A-Z]|_|$)/
-  # Lsas palabras compuestas serán las siguientes: la primera palabra es con r,
-  # n, d, l o j, seguida de una palabra terminada en vocal. La segunda palabra
-  # compuesta, será al revés.
-  compuesta_plural_1 = /#{final_plural_rndlj}([a-z]+)#{final_plural_vocal}/
-  compuesta_plural_2 = /#{final_plural_vocal}([a-z]+)#{final_plural_rndlj}/
-
-  # las palabras terminadas en ia ya están en singular
-  inflect.singular(/(ia)([A-Z]|_|$)$/i, '\1')
-
-  # Utilizando las variables creadas anteriormente, se generan las nuevas reglas
-  # para obtener el singular de las palabras sencillas y compuetas que terminen
-  # tanto en vocal, como en r, n, d, l, o j.
-  inflect.singular(final_plural_rndlj, '\1\2')
-  inflect.singular(final_plural_vocal, '\1\2')
-  inflect.singular(compuesta_plural_1, '\1\2\3\4\5')
-  inflect.singular(compuesta_plural_2, '\1\2\3\4\5')
+  inflect.singular(/((?<singular>ia)|(?<singular>[aeiou][rldyjn])es|(?<singular>[bcdfgpt][lr]e|[aeiou])s)(?=[A-Z]|_|$)/, '\\k<singular>')
 
   # Para singularizar palabras con 'ces', como 'maices'
   inflect.singular(/ces$/, 'z')
@@ -110,7 +84,11 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'pais', 'paises'
   # Pero es necesario agregar otra regla. Pais termina en s, pero ya está en
   # singular, por lo que hay que indicarle a rails que no elimine la s final.
-  inflect.singular /(pais)([A-Z]|_|$)/, '\1\2'
+  inflect.singular /(pais)(?=[A-Z]|_|$)/, '\1'
+
+  # el mismo caso aplica para 'mes'
+  inflect.irregular 'mes', 'meses'
+  inflect.singular /(mes)(?=[A-Z]|_|$)/, '\1'
 
   # Ejemplos cuyo plural y singular sea el mismo
   inflect.uncountable %w( campus lunes martes miercoles jueves viernes )
