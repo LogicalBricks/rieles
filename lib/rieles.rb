@@ -1,6 +1,7 @@
 require 'rieles/version'
 require 'rails'
-require 'config/initializer/inflections.rb'
+require 'active_support/inflector/methods_override'
+require 'config/initializer/inflections'
 
 module Rieles
   I18n.load_path += Dir.glob( File.dirname(__FILE__) + "/config/locales/*.{rb,yml}" ) 
