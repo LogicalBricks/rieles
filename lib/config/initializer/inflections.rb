@@ -30,22 +30,18 @@ ActiveSupport::Inflector.inflections do |inflect|
   # Por facilidad, haremos uso de la posibilidad que nos brinda `gsub` de pasar
   # un hash para realizar los remplazos.
 
-  remplazos = {
-    'a' => 'as',
-    'e' => 'es',
-    'i' => 'is',
-    'o' => 'os',
-    'u' => 'us',
-    'd' => 'des',
-    'j' => 'jes',
-    'l' => 'les',
-    'n' => 'nes',
-    'r' => 'res',
-    'y' => 'yes',
-    'z' => 'ces',
-  }
-
-  inflect.plural(/(z|[aeiou]|[rndljy])(?=[A-Z]|_|$)/, remplazos)
+  inflect.plural(/(a)(?=$)/, 'as')
+  inflect.plural(/(e)(?=$)/, 'es')
+  inflect.plural(/(i)(?=$)/, 'is')
+  inflect.plural(/(o)(?=$)/, 'os')
+  inflect.plural(/(u)(?=$)/, 'us')
+  inflect.plural(/(d)(?=$)/, 'des')
+  inflect.plural(/(j)(?=$)/, 'jes')
+  inflect.plural(/(l)(?=$)/, 'les')
+  inflect.plural(/(n)(?=$)/, 'nes')
+  inflect.plural(/(r)(?=$)/, 'res')
+  inflect.plural(/(y)(?=$)/, 'yes')
+  inflect.plural(/(z)(?=$)/, 'ces')
 
   #-----------------------------------------------------------------------------
 
