@@ -17,7 +17,7 @@ describe 'Inflections' do
   context 'Pluralizaciones' do
     it 'pluraliza palabras sencillas' do
       singulares.each_with_index do |s, i|
-        s.pluralize.should == plurales[i]
+        expect(s.pluralize).to eq plurales[i]
       end
     end
 
@@ -26,23 +26,23 @@ describe 'Inflections' do
       singulares_compuestas = singulares.permutation(4).to_a.collect{ |e| e.join('_') }
       plurales_compuestas = plurales.permutation(4).to_a.collect{ |e| e.join('_') }
       singulares_compuestas.each_with_index do |s, i|
-        s.pluralize.should == plurales_compuestas[i]
+        expect(s.pluralize).to eq plurales_compuestas[i]
       end
     end
 
     it 'pluraliza casos especiales' do
-      'pais'.pluralize.should == 'paises'
-      'maiz'.pluralize.should == 'maices'
-      'materia'.pluralize.should == 'materias'
+      expect('pais'.pluralize).to eq 'paises'
+      expect('maiz'.pluralize).to eq 'maices'
+      expect('materia'.pluralize).to eq 'materias'
     end
 
     it 'no pluraliza palabras que ya estén en plural' do
-      'camiones'.pluralize.should == 'camiones'
-      'camiones_grandes'.pluralize.should == 'camiones_grandes'
-      'universidades_hospitales_doctores'.pluralize.should == 'universidades_hospitales_doctores'
-      'paises'.pluralize.should == 'paises'
-      'meses'.pluralize.should == 'meses'
-      'lunes'.pluralize.should == 'lunes'
+      expect('camiones'.pluralize).to eq 'camiones'
+      expect('camiones_grandes'.pluralize).to eq 'camiones_grandes'
+      expect('universidades_hospitales_doctores'.pluralize).to eq 'universidades_hospitales_doctores'
+      expect('paises'.pluralize).to eq 'paises'
+      expect('meses'.pluralize).to eq 'meses'
+      expect('lunes'.pluralize).to eq 'lunes'
     end
   end
 
@@ -53,7 +53,7 @@ describe 'Inflections' do
   context 'Singularizaciones' do
     it 'singulariza palabras sencillas' do
       plurales.each_with_index do |p, i|
-        p.singularize.should == singulares[i]
+        expect(p.singularize).to eq singulares[i]
       end
     end
 
@@ -61,23 +61,23 @@ describe 'Inflections' do
       singulares_compuestas = singulares.permutation(4).to_a.collect{ |e| e.join('_') }
       plurales_compuestas = plurales.permutation(4).to_a.collect{ |e| e.join('_') }
       plurales_compuestas.each_with_index do |p, i|
-        p.singularize.should == singulares_compuestas[i]
+        expect(p.singularize).to eq singulares_compuestas[i]
       end
     end
 
     it 'singulariza casos especiales' do
-      'paises'.singularize.should == 'pais'
-      'maices'.singularize.should == 'maiz'
-      'materias'.singularize.should == 'materia'
+      expect('paises'.singularize).to eq 'pais'
+      expect('maices'.singularize).to eq 'maiz'
+      expect('materias'.singularize).to eq 'materia'
     end
 
     it 'no singulariza palabras que ya estén en singular' do
-      'camion'.singularize.should == 'camion'
-      'camion_grande'.singularize.should == 'camion_grande'
-      'universidad_hospital_doctor'.singularize.should == 'universidad_hospital_doctor'
-      'pais'.singularize.should == 'pais'
-      'lunes'.singularize.should == 'lunes'
-      'materia'.singularize.should == 'materia'
+      expect('camion'.singularize).to eq 'camion'
+      expect('camion_grande'.singularize).to eq 'camion_grande'
+      expect('universidad_hospital_doctor'.singularize).to eq 'universidad_hospital_doctor'
+      expect('pais'.singularize).to eq 'pais'
+      expect('lunes'.singularize).to eq 'lunes'
+      expect('materia'.singularize).to eq 'materia'
     end
   end
 end

@@ -10,7 +10,7 @@ describe Rieles::InstallGenerator do
   context 'when creating erb views' do
     before(:each) do
       prepare_destination
-      ::Rieles::InstallGenerator.any_instance.stub(:engine).and_return('erb')
+      allow_any_instance_of(::Rieles::InstallGenerator).to receive(:engine).and_return('erb')
       run_generator
     end
 
@@ -29,7 +29,7 @@ describe Rieles::InstallGenerator do
   context 'when creating haml views' do
     before(:each) do
       prepare_destination
-      ::Rieles::InstallGenerator.any_instance.stub(:engine).and_return('haml')
+      allow_any_instance_of(::Rieles::InstallGenerator).to receive(:engine).and_return('haml')
       run_generator
     end
 
