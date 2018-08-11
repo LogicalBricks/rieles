@@ -1,5 +1,6 @@
 require 'rieles/version'
 require 'rails'
+require 'active_support/inflector/methods_override'
 require 'config/initializer/inflections'
 
 module Rieles
@@ -14,4 +15,3 @@ module Rieles
   class Engine < ::Rails::Engine
   end
 end
-
